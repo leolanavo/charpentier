@@ -1,2 +1,2 @@
-export { default as context } from './context';
-export { default as requestHandlers } from './requests';
+export { default as buildContext } from './context';
+export { default as buildRequests } from './requests';

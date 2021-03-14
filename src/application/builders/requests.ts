@@ -1,8 +1,6 @@
 import { RequestHandler } from '../types';
 import proccessFiles from './utils';
 
-const requestHandlers: RequestHandler[] = [];
-
 function isRequestHandler(importedFile: any) {
 	return importedFile.config &&
 		importedFile.handler &&
@@ -10,7 +8,11 @@ function isRequestHandler(importedFile: any) {
 		importedFile.config.route;
 }
 
-proccessFiles('../../core', requestHandlers, isRequestHandler);
+function buildRequests(basePath: string) {
+	const requestHandlers: RequestHandler[] = [];
+	proccessFiles(basePath, requestHandlers, isRequestHandler);
+	return requestHandlers;
+}
 
-export default requestHandlers;
+export default buildRequests;
 

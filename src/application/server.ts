@@ -1,13 +1,17 @@
 import express from 'express';
 
-import { context, requestHandlers } from './builders';
+import { buildContext, buildRequests } from './builders';
+
+type HTTP_METHODS = "get" | "post"
+
+const basePath = '../../core';
+const context = buildContext(basePath);
+const requests = buildRequests(basePath);
 
 const app = express();
 const port = 3000;
 
-type HTTP_METHODS = "get" | "post"
-
-requestHandlers.forEach(({ config, handler }) => {
+requests.forEach(({ config, handler }) => {
   const method = config.method.toLowerCase();
   app[method as HTTP_METHODS](config.route, (req, res) => {
     return handler(req, res, context);

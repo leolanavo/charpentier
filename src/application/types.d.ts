@@ -1,3 +1,5 @@
+import { Schema } from 'mongoose';
+
 interface RequestHandlerConfig {
   route: string;
   method: 'POST' | 'GET';
@@ -20,3 +22,9 @@ export interface MessageHandler {
   config: MessageHandlerConfig;
   handler: MessageHandlerFunction;
 }
+
+export interface Model {
+	name: string;
+	schema: Schema;
+}
+

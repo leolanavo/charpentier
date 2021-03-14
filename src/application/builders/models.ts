@@ -1,23 +1,21 @@
-import { model, Schema } from 'mongoose';
+import { model } from 'mongoose';
 
+import { Model } from '../types';
 import proccessFiles from './utils';
-
-interface Model {
-	name: string;
-	schema: Schema;
-}
 
 function isModel(importedFile: Record<string, any>) {
 	return importedFile.name && importedFile.schema;
 }
 
-const models: Model[] = [];
+function buildModels(basePath: string) {
+	const models: Model[] = [];
 
-proccessFiles('../../core', models, isModel);
+	proccessFiles(basePath, models, isModel);
 
-const mongooseModels = models.map(({ name, schema }) => {
-	return model(name, schema);
-});
+	return models.map(({ name, schema }) => {
+		return model(name, schema);
+	});
+};
 
-export default mongooseModels;
+export default buildModels;
 

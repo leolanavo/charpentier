@@ -1,8 +1,8 @@
-import publish from './publish';
-import models from './models';
+import buildPublish from './publish';
+import buildModels from './models';
 
-export default {
-	publish,
-	models
-};
+export default (basePath: string) => ({
+	publish: buildPublish(basePath),
+	models: buildModels(basePath),
+});
 

@@ -9,23 +9,25 @@ function isMessageHandler(importedFile: any) {
 		importedFile.config.topic;
 }
 
-proccessFiles('../../core', messageHandlers, isMessageHandler);
+function buildPublish(basePath: string) {
+	proccessFiles(basePath, messageHandlers, isMessageHandler);
 
-const TOPICS: Record<string, any[]> = {};
+	const TOPICS: Record<string, any[]> = {};
 
-messageHandlers.forEach(({ config, handler }) => {
-  const key = config.topic;
+	messageHandlers.forEach(({ config, handler }) => {
+		const key = config.topic;
 
-  if (!TOPICS[key]) {
-    TOPICS[key] = [];
-  }
+		if (!TOPICS[key]) {
+			TOPICS[key] = [];
+		}
 
-  TOPICS[key].push(handler);
-});
+		TOPICS[key].push(handler);
+	});
 
-function publish(topic: string, payload: Record<string, any>) {
-	TOPICS[topic].forEach(h => h(payload));
-}
+	return function publish(topic: string, payload: Record<string, any>) {
+		TOPICS[topic].forEach(h => h(payload));
+	}
+};
 
-export default publish;
+export default buildPublish;
 
