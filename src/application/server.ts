@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { context, requestHandlers } from './build';
+import { context, requestHandlers } from './builders';
 
 const app = express();
 const port = 3000;

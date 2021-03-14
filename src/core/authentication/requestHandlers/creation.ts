@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 
 const config = {
-  method: 'GET'
+  method: 'GET',
   route: '/',
   name: 'userCreation',
 };
@@ -16,3 +16,4 @@ export {
   config,
   handler
 }
+
