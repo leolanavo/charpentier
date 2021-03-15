@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - "./src/:/usr/app/src"
+  mongo:
+    image: mongo:4.4.4-bionic
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+

@@ -1,6 +1,9 @@
 import express from 'express';
+import mongoose from 'mongoose';
 
 import { buildContext, buildRequests } from './builders';
+
+mongoose.connect('mongodb://mongo:27017');
 
 type HTTP_METHODS = "get" | "post"
 
@@ -9,6 +12,9 @@ const context = buildContext(basePath);
 const requests = buildRequests(basePath);
 
 const app = express();
+
+app.use(express.json());
+
 const port = 3000;
 
 requests.forEach(({ config, handler }) => {

@@ -9,12 +9,15 @@ function isModel(importedFile: Record<string, any>) {
 
 function buildModels(basePath: string) {
 	const models: Model[] = [];
+	const mongoModels: Record<string, ReturnType<typeof model>> = {};
 
 	proccessFiles(basePath, models, isModel);
 
-	return models.map(({ name, schema }) => {
-		return model(name, schema);
+	models.forEach(({ name, schema }) => {
+		mongoModels[name] = model(name, schema);
 	});
+
+	return mongoModels;
 };
 
 export default buildModels;
