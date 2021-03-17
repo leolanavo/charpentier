@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/application/server.ts",
-    "new-service": "./scripts/new-service.sh"
+    "new:service": "./scripts/new-service.sh",
+    "migrate:micro": "./scripts/to-microservices.sh",
+    "migrate:mono": "./scripts/to-monolith.sh"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
