@@ -21,9 +21,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    zookeeper:
+
+  zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    networks: 
+    networks:
       - broker-kafka
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
