@@ -1,0 +1,1 @@
+cp -r $(pwd)/scripts/baseService ./src/core/$1
