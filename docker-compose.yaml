@@ -7,6 +7,9 @@ services:
       - 3000:3000
     volumes:
       - "./src/:/usr/app/src"
+    environment:
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: example
   mongo:
     image: mongo:4.4.4-bionic
     ports:

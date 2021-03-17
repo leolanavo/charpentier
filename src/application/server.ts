@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 
 import { buildContext, buildRequests } from './builders';
 
-mongoose.connect('mongodb://mongo:27017');
+mongoose.connect('mongodb://mongo:27017', { 
+  user: process.env.MONGO_USERNAME,
+  pass: process.env.MONGO_PASSWORD,
+});
 
 type HTTP_METHODS = "get" | "post"
 
