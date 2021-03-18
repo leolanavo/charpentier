@@ -1,8 +1,8 @@
-import { Schema } from 'mongoose';
+import { Schema } from "mongoose";
 
 interface RequestHandlerConfig {
   route: string;
-  method: 'POST' | 'GET';
+  method: "POST" | "GET";
 }
 
 type RequestHandlerFunction = (...args: any) => any;

@@ -1,13 +1,13 @@
-import express from 'express';
+import express from "express";
 
-import { buildContext, buildRequests } from './builders';
-import { buildMongoClient } from './builders/connections';
+import { buildContext, buildRequests } from "./builders";
+import { buildMongoClient } from "./connections";
 
 type HTTP_METHODS = "get" | "post"
 
 buildMongoClient();
 
-const basePath = '../../core';
+const basePath = "../../core";
 const context = buildContext(basePath);
 const requests = buildRequests(basePath);
 
