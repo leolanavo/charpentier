@@ -1,2 +1,2 @@
-export { default as buildKafkaClient } from './kafka';
-export { default as buildMongoClient } from './mongo';
+export { default as KafkaClient } from './Kafka';
+export { default as MongoClient } from './Mongo';

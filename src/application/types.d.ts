@@ -1,8 +1,12 @@
 import { Schema } from "mongoose";
 
+type HTTP_METHODS = "get" | "post" | "patch" | "put" | "delete";
+
+export type ARCHITECTURES = 'microservices' | 'monolith';
+
 interface RequestHandlerConfig {
   route: string;
-  method: "POST" | "GET";
+  method: HTTP_METHODS;
 }
 
 type RequestHandlerFunction = (...args: any) => any;
@@ -27,4 +31,6 @@ export interface Model {
 	name: string;
 	schema: Schema;
 }
+
+export type Context = any;
 

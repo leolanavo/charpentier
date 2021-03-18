@@ -1,28 +1,16 @@
 import express from "express";
 
-import { buildContext, buildRequests } from "./builders";
-import { buildMongoClient } from "./connections";
+import { Context, Requests } from "./builders";
+import { MongoClient } from "./connections";
 
-type HTTP_METHODS = "get" | "post"
-
-buildMongoClient();
-
-const basePath = "../../core";
-const context = buildContext(basePath);
-const requests = buildRequests(basePath);
-
+const port = process.env.PORT;
 const app = express();
-
 app.use(express.json());
 
-const port = 3000;
+MongoClient.connect();
 
-requests.forEach(({ config, handler }) => {
-  const method = config.method.toLowerCase();
-  app[method as HTTP_METHODS](config.route, (req, res) => {
-    return handler(req, res, context);
-  });
-});
+const context = Context.build();
+Requests.build(app, context);
 
 app.listen(port, () => {
   console.log(`Charpentier listening at http://localhost:${port}`);
