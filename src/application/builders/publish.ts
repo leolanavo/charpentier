@@ -1,4 +1,6 @@
-import { KafkaClient, Producer, Message } from 'kafka-node';
+import { Producer } from 'kafka-node';
+
+import { buildKafkaClient } from '../connections'
 
 import { MessageHandler } from '../types';
 import proccessFiles from './utils';
@@ -17,7 +19,10 @@ function isMessageHandler(importedFile: any) {
 		importedFile.config.topic;
 }
 
-function buildPublishForMonolith(messageHandlers: MessageHandler[], context: any) {
+function buildPublishForMonolith(basePath: string, context: any) {//{{{
+	const messageHandlers: MessageHandler[] = [];
+	proccessFiles(basePath, messageHandlers, isMessageHandler);
+
 	const TOPICS: Record<string, any[]> = {};
 
 	messageHandlers.forEach(({ config, handler }) => {
@@ -29,33 +34,27 @@ function buildPublishForMonolith(messageHandlers: MessageHandler[], context: any
 	return function publish(topic: string, payload: Record<string, any>) {
 		TOPICS[topic].forEach(h => h(payload, context));
 	}
-};
+};//}}}
 
-function buildPublishForMicroservices(messageHandlers: MessageHandler[], context: any) {
-	const client = new KafkaClient({
-		kafkaHost: `${process.env.KAFKA_HOST}:${process.env.KAFKA_PORT}`,
-	});
+function buildPublishForMicroservices() {
+	const client = buildKafkaClient();
 
 	return function publish(topic: string, payload: Record<string, any>) {
 		const producer = new Producer(client);
 		producer.on('ready', () => {
 			producer.send(
-				newMessage(topic, payload), 
+				newMessage(topic, payload),
 				() => {}
 			);
 		})
 	}
-
 }
 
 function buildPublish(basePath: string, context: any) {
-	const messageHandlers: MessageHandler[] = [];
-	proccessFiles(basePath, messageHandlers, isMessageHandler);
-
 	if (process.env.ARCHITECTURE === 'microservices') {
-		return buildPublishForMicroservices(messageHandlers, context);
-	} else if (process.env.ARCHITECTURE === 'microservices') { 
-		return buildPublishForMonolith(messageHandlers, context);
+		return buildPublishForMicroservices();
+	} else if (process.env.ARCHITECTURE === 'microservices') {
+		return buildPublishForMonolith(basePath, context);
 	}
 }
 

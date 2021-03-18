@@ -1,14 +1,11 @@
 import express from 'express';
-import mongoose from 'mongoose';
 
 import { buildContext, buildRequests } from './builders';
-
-mongoose.connect('mongodb://mongo:27017', { 
-  user: process.env.MONGO_USERNAME,
-  pass: process.env.MONGO_PASSWORD,
-});
+import { buildMongoClient } from './builders/connections';
 
 type HTTP_METHODS = "get" | "post"
+
+buildMongoClient();
 
 const basePath = '../../core';
 const context = buildContext(basePath);
