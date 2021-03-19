@@ -4,7 +4,8 @@ const name = 'User';
 
 const schema = new Schema({
 	name: 'string',
-	email: 'string'
+	email: 'string',
+	password: 'string'
 });
 
 export {
