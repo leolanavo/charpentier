@@ -13,10 +13,10 @@ class Context {
 
   public static build() {
     if (!Context.context) {
-      Context.context = {
-        models: Models.build(),
-        publish: Publish.build(Context.context),
-      };
+			const models = Models.build();
+			const publish = Publish.build({ models });
+
+      Context.context = { models, publish };
     }
 
     return Context.context
