@@ -3,7 +3,6 @@ import { Response, Request } from 'express';
 const config = {
   method: 'post',
   route: '/user',
-  name: 'userCreation',
 };
 
 async function handler(req: Request, res: Response, context: any) {

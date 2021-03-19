@@ -1,20 +1,28 @@
 import { Response, Request } from 'express';
 
 const config = {
-  method: 'POST',
+  method: 'post',
   route: '/user',
-  name: 'userCreation',
 };
 
-function handler(req: Request, res: Response, context: any) {
-	console.log(req.body);
-	console.log(context.models);
+async function handler(req: Request, res: Response, context: any) {
+	const { User } = context.models;
 
-	const user = new context.models.User({ ...req.body });
-	user.save();
+	const userFind = await User.findOne({
+		email: req.body.email
+	});
 
-  context.publish('USER_CREATED', user);
-  res.status(200).json(user);
+	if (userFind) {
+		res.status(401).send();
+		return;
+	}
+
+	const user = new User({ ...req.body });
+	context.publish('USER.NEW', user);
+
+  res
+		.status(201)
+		.json(user)
 }
 
 export {
