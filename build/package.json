@@ -5,7 +5,7 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./application/server.ts",
+    "start": "ls . && ts-node ./application/server.ts",
     "build:mono": "./scripts/build-monolith.sh",
     "lint": "eslint ./**/*.ts",
     "new:service": "./scripts/new-service.sh",

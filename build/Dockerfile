@@ -8,7 +8,9 @@ RUN yarn install
 
 COPY ./tsconfig.json ./
 
-COPY ./src ./src
+COPY ./application ./application
+
+COPY ./core ./core
 
 CMD yarn start
 
