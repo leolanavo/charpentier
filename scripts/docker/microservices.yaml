@@ -12,6 +12,8 @@ services:
       KAFKA_PORT: 9092
       MONGO_USERNAME: root
       MONGO_PASSWORD: example
+      BASE_PATH: "../../core"
+      PORT: 3000
       ARCHITECTURE: microservices
 
   mongo:

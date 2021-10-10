@@ -5,8 +5,9 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/application/server.ts",
-    "lint": "eslint src/**/*.ts",
+    "start": "ts-node ./application/server.ts",
+    "build:mono": "./scripts/build-monolith.sh",
+    "lint": "eslint ./**/*.ts",
     "new:service": "./scripts/new-service.sh",
     "migrate:micro": "./scripts/to-microservices.sh",
     "migrate:mono": "./scripts/to-monolith.sh"

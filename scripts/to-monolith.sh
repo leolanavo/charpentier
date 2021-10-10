@@ -1,1 +1,0 @@
-cp -f $(pwd)/scripts/docker-compose/monolith.yaml ./docker-compose.yaml
